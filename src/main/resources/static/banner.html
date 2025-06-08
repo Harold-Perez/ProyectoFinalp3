@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Control - EduFuture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #0b0b0b;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #0f0f0f;
+      border-bottom: 1px solid #222;
+    }
+    header h1 { color: #00f7ff; }
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+    nav a:hover { color: #00f7ff; }
+    main {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    main h2 {
+      color: #00f7ff;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px #00f7ff;
+      animation: entradaEpica 2s ease-out forwards;
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    main p {
+      color: #ccc;
+      margin-bottom: 6rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1300px;
+      margin: auto;
+    }
+    .card h3 {
+  color: white; /* Forzamos color blanco */
+}
+
+.card a {
+  color: white;
+  text-decoration: none;
+}
+
+.card a:hover {
+  color: #00f7ff; /* o el color que uses en hover */
+}
+
+    .card {
+      background: #121212;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      border-color: #00f7ff55;
+    }
+    .card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      font-size: 1.2rem;
+    }
+    footer {
+      margin-top: 10rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .aurora {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      background: linear-gradient(120deg, #00f7ff33, #00556622, transparent);
+      filter: blur(40px);
+      animation: auroraFlow 10s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+    @keyframes auroraFlow {
+      0% { transform: translateX(0) scaleY(1); }
+      100% { transform: translateX(50px) scaleY(1.2); }
+    }
+    .blob {
+      position: absolute;
+      bottom: 10%;
+      left: 80%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle at 30% 30%, #00f7ff33, transparent 70%);
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: blobFlow 20s ease-in-out infinite;
+      transform: translateX(-50%);
+      z-index: -2;
+    }
+    @keyframes blobFlow {
+      0% { transform: translate(-50%, 0%) scale(1); }
+      50% { transform: translate(-60%, -10%) scale(1.2); }
+      100% { transform: translate(-50%, 0%) scale(1); }
+    }
+    @keyframes entradaEpica {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 0 0 20px #00f7ff;
+      }
+    }
+    #circuit-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -3;
+      width: 100vw;
+      height: 100vh;
+      background: #0b0b0b;
+    }
+  </style>
+</head>
+
+<body>
+<div id="particles-js"></div>
+<div class="aurora"></div>
+<div class="blob"></div>
+<canvas id="circuit-canvas"></canvas>
+
+<header>
+  <h1>EduFuture</h1>
+  <nav>
+    <a href="banner.html">Inicio</a>
+  </nav>
+</header>
+
+<main>
+  <h2>👨‍🏫 Bienvenido, Ingeniero Moises</h2>
+  <p>Hoy tienes 3 clases y 12 tareas por revisar.</p>
+
+  <div class="grid">
+    <div class="card">
+      <a href="estudiantes.html">
+        <i>📊</i>
+        <h3>Todos Estudiantes</h3>
+      </a>
+    </div>
+
+    <div class="card" onclick="redirigirConId('verEstudiante.html')">
+      <i>🗓️</i>
+      <h3>Estudiante por ID</h3>
+    </div>
+
+    <div class="card">
+      <a href="registrarEstudiante.html">
+        <i>📝</i>
+        <h3>Registrar Estudiante</h3>
+      </a>
+    </div>
+
+    <div class="card" onclick="redirigirConId('editarEstudiante.html')">
+      <i>📈</i>
+      <h3>Editar Completamente</h3>
+    </div>
+
+    <div class="card" onclick="redirigirConId('editarEstudianteparcial.html')">
+      <i>⚙️</i>
+      <h3>Editar Parcialmente</h3>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2025 EduFuture. Todos los derechos reservados.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  particlesJS("particles-js", {
+    "particles": {
+      "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
+      "color": { "value": "#00f7ff" },
+      "shape": { "type": "circle" },
+      "opacity": { "value": 0.5, "random": true },
+      "size": { "value": 3, "random": true },
+      "line_linked": { "enable": false },
+      "move": { "enable": true, "speed": 1.5, "direction": "none", "out_mode": "out" }
+    },
+    "interactivity": {
+      "events": { "onhover": { "enable": true, "mode": "repulse" } },
+      "modes": { "repulse": { "distance": 80 } }
+    },
+    "retina_detect": true
+  });
+
+  const canvas = document.getElementById("circuit-canvas");
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  const lines = [];
+  for (let i = 0; i < 60; i++) {
+    lines.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      length: Math.random() * 80 + 40,
+      speed: Math.random() * 0.5 + 0.3,
+      direction: Math.random() > 0.5 ? "horizontal" : "vertical"
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "#00f7ff";
+    ctx.lineWidth = 1;
+    lines.forEach(line => {
+      ctx.beginPath();
+      if (line.direction === "horizontal") {
+        ctx.moveTo(line.x, line.y);
+        ctx.lineTo(line.x + line.length, line.y);
+        line.x += line.speed;
+        if (line.x > canvas.width) line.x = -line.length;
+      } else {
+        ctx.moveTo(line.x, line.y);
+        ctx.lineTo(line.x, line.y + line.length);
+        line.y += line.speed;
+        if (line.y > canvas.height) line.y = -line.length;
+      }
+      ctx.stroke();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  function redirigirConId(pagina) {
+    const id = prompt("Ingrese el ID del estudiante:");
+    if (id && !isNaN(id)) {
+      window.location.href = `${pagina}?id=${id}`;
+    } else {
+      alert("ID inválido. Debe ser un número.");
+    }
+  }
+</script>
+
+</body>
+</html>

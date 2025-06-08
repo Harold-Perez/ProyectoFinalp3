@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Estudiante - EduFuture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: #0b0b0b;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+     header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #0f0f0f;
+      border-bottom: 1px solid #222;
+      z-index: 10;
+    }
+
+    header h1 {
+      color: #00f7ff;
+    }
+
+    .form-container {
+      background: #121212;
+      border: 2px solid #00f7ff44;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+      width: 400px;
+      position: relative;
+    }
+
+    .form-container::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, #00f7ff, #00bcd4, #00f7ff);
+      z-index: -1;
+      border-radius: 1.2rem;
+      animation: borderGlow 4s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #00f7ff;
+      text-shadow: 0 0 10px #00f7ff;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      border: none;
+      background: #1e1e1e;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: inset 0 0 5px rgba(0,255,255,0.2);
+    }
+
+    input:focus, select:focus {
+      box-shadow: 0 0 10px #00f7ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 1rem;
+      background-color: #00f7ff;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00f7ff;
+    }
+
+    button:hover {
+      background-color: #00d0e0;
+      box-shadow: 0 0 20px #00f7ff, 0 0 30px #00f7ff;
+      transform: scale(1.03);
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>EduFuture</h1>
+  <nav>
+    <a href="banner.html">Inicio</a>
+  </nav>
+</header>
+
+<div id="particles-js"></div>
+
+<div class="form-container">
+  <h2>Editar Estudiante</h2>
+  <input type="text" id="nombre" placeholder="Nombre">
+  <input type="text" id="apellido" placeholder="Apellido">
+  <input type="email" id="email" placeholder="Correo">
+  <input type="text" id="telefono" placeholder="Teléfono">
+  <select id="idioma">
+    <option value="">Seleccione un idioma</option>
+    <option value="español">Español</option>
+    <option value="inglés">Inglés</option>
+    <option value="francés">Francés</option>
+  </select>
+  <button onclick="actualizarEstudiante()">Editar</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  particlesJS("particles-js", {
+    "particles": {
+      "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
+      "color": { "value": "#00f7ff" },
+      "shape": { "type": "circle" },
+      "opacity": { "value": 0.5, "random": true },
+      "size": { "value": 3, "random": true },
+      "line_linked": { "enable": false },
+      "move": {
+        "enable": true,
+        "speed": 1,
+        "direction": "none",
+        "out_mode": "out"
+      }
+    },
+    "interactivity": {
+      "events": {
+        "onhover": { "enable": true, "mode": "repulse" }
+      },
+      "modes": { "repulse": { "distance": 100 } }
+    },
+    "retina_detect": true
+  });
+</script>
+
+<script src="js/editarEstudiante.js"></script>
+</body>
+</html>
