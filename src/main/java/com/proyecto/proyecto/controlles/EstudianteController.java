@@ -2,7 +2,6 @@ package com.proyecto.proyecto.controlles;
 
 import com.proyecto.proyecto.dao.EstudianteDao;
 import com.proyecto.proyecto.models.Estudiante;
-import com.proyecto.proyecto.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +19,10 @@ public class EstudianteController {
     @Autowired
     private EstudianteDao estudianteDao;
 
-    @Autowired
-    private JWTUtil jwtUtil;
-
     // Obtener estudiante por ID
     @RequestMapping(value = "api/estudiantes/{id}", method = RequestMethod.GET)
     public Estudiante getEstudiante(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) {
-        if (!validarToken(token)) {
-            return null;
-        }
+
         return estudianteDao.obtenerEstudiantePorId(id);
     }
 
@@ -39,9 +33,7 @@ public class EstudianteController {
             @PathVariable Long id,
             @RequestBody Estudiante estudiante) {
 
-        if (!validarToken(token)) {
-            return new ResponseEntity<>("Token no válido", HttpStatus.UNAUTHORIZED);
-        }
+
 
         Estudiante existente = estudianteDao.obtenerEstudiantePorId(id);
         if (existente == null) {
@@ -66,9 +58,7 @@ public class EstudianteController {
             @PathVariable Long id,
             @RequestBody Map<String, Object> datos) {
 
-        if (!validarToken(token)) {
-            return new ResponseEntity<>("Token no válido", HttpStatus.UNAUTHORIZED);
-        }
+
 
         Estudiante existente = estudianteDao.obtenerEstudiantePorId(id);
         if (existente == null) {
@@ -89,9 +79,7 @@ public class EstudianteController {
     // Obtener todos los estudiantes
     @RequestMapping(value = "api/estudiantes", method = RequestMethod.GET)
     public List<Estudiante> getEstudiantes(@RequestHeader(value = "Authorization") String token) {
-        if (!validarToken(token)) {
-            return null;
-        }
+       
         return estudianteDao.getEstudiantes();
     }
 
@@ -107,24 +95,10 @@ public class EstudianteController {
     // Eliminar estudiante
     @RequestMapping(value = "api/estudiantes/{id}", method = RequestMethod.DELETE)
     public void eliminar(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) {
-        if (!validarToken(token)) {
-            return;
-        }
+
         estudianteDao.eliminar(id);
     }
 
-    // Validar token
-    private boolean validarToken(String token) {
-        if (token == null || !token.startsWith("Bearer ")) {
-            return false;
-        }
-        String jwt = token.substring(7).trim(); // 👈 elimina espacios y "Bearer "
-        try {
-            String estudianteId = jwtUtil.getKey(jwt);
-            return estudianteId != null;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+
 
 }

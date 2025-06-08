@@ -35,6 +35,7 @@ public class EstudianteServiceImpl implements EstudianteService {
     public Estudiante crear(Estudiante estudiante) {
         estudianteDao.registrar(estudiante);
         return estudiante;
+
     }
 
     @Override

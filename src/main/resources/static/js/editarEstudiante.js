@@ -2,11 +2,7 @@
   const id = params.get("id");
 
   async function cargarDatosEstudiante() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Token no encontrado. Por favor, inicia sesión.");
-      return;
-    }
+
 
     const response = await fetch(`http://localhost:8080/api/estudiantes/${id}`, {
       headers: {
