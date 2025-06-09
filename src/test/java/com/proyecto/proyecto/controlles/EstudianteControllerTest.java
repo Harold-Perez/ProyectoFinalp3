@@ -28,11 +28,11 @@ class EstudianteControllerTest {
 
     @Test
     void testGetEstudiante_Existente() {
-        Estudiante e = new Estudiante(1L, "Juan", "juan@mail.com");
+        Estudiante e = new Estudiante(1L, "Benja", "benja@mail.com");
         when(estudianteDao.obtenerEstudiantePorId(1L)).thenReturn(e);
 
         Estudiante resultado = controller.getEstudiante(1L);
-        assertEquals("Juan", resultado.getNombre());
+        assertEquals("Benja", resultado.getNombre());
         verify(estudianteDao).obtenerEstudiantePorId(1L);
     }
 
@@ -49,7 +49,7 @@ class EstudianteControllerTest {
     void testActualizarEstudiante_NoExiste() {
         when(estudianteDao.obtenerEstudiantePorId(1L)).thenReturn(null);
 
-        Estudiante update = new Estudiante(null, "Juan Actualizado", null);
+        Estudiante update = new Estudiante(null, "Benja Actualizado", null);
         ResponseEntity<String> response = controller.actualizarEstudiante(1L, update);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -74,7 +74,7 @@ class EstudianteControllerTest {
         Map<String, Object> datos = new HashMap<>();
         datos.put("idioma", "ruso");  // idioma inválido
 
-        Estudiante existente = new Estudiante(1L, "Juan", "juan@mail.com");
+        Estudiante existente = new Estudiante(1L, "Benja", "benja@mail.com");
         when(estudianteDao.obtenerEstudiantePorId(1L)).thenReturn(existente);
 
         doThrow(new IllegalArgumentException("Idioma no válido. Debe ser 'español', 'ingles' o 'francés'."))

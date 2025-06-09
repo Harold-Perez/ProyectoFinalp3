@@ -24,7 +24,7 @@ class EstudianteServiceTest {
     @Test
     void testObtenerTodos() {
         when(estudianteDao.getEstudiantes()).thenReturn(Arrays.asList(
-                new Estudiante(1L, "Juan", "juan@mail.com")
+                new Estudiante(1L, "Benja", "benja@mail.com")
         ));
 
         var resultado = estudianteService.obtenerTodos();
@@ -34,11 +34,11 @@ class EstudianteServiceTest {
 
     @Test
     void testObtenerPorId_Existente() {
-        Estudiante estudiante = new Estudiante(1L, "Juan", "juan@mail.com");
+        Estudiante estudiante = new Estudiante(1L, "Benja", "benja@mail.com");
         when(estudianteDao.obtenerEstudiantePorId(1L)).thenReturn(estudiante);
 
         Estudiante resultado = estudianteService.obtenerPorId(1L);
-        assertEquals("Juan", resultado.getNombre());
+        assertEquals("Benja", resultado.getNombre());
     }
 
     @Test
