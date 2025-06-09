@@ -1,10 +1,8 @@
-// Call the dataTables jQuery plugin
 $(document).ready(function () {
   // on ready
 });
 
 async function registrarEstudiante() {
-
   let datos = {};
   datos.nombre = document.getElementById("txtNombre").value;
   datos.apellido = document.getElementById("txtApellido").value;
@@ -12,8 +10,21 @@ async function registrarEstudiante() {
   datos.telefono = document.getElementById("txtTelefono").value;
   datos.idioma = document.getElementById("selectIdioma").value;
 
+  // ✅ Validar formato de correo
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(datos.email)) {
+    alert('Por favor ingrese un correo electrónico válido');
+    return;
+  }
 
+  // ✅ Verificar si el correo ya existe (nuevo)
+  const existe = await verificarCorreoExistente(datos.email);
+  if (existe) {
+    alert('Este correo ya está registrado. Intenta con otro.');
+    return;
+  }
 
+  // ✅ Validaciones restantes
   if (!validarTelefono(datos.telefono)) {
     alert("El número de teléfono debe contener exactamente 10 dígitos numéricos.");
     return;
@@ -24,6 +35,7 @@ async function registrarEstudiante() {
     return;
   }
 
+  // ✅ Registrar estudiante
   const request = await fetch('api/estudiantes', {
     method: 'POST',
     headers: {
@@ -35,6 +47,17 @@ async function registrarEstudiante() {
 
   alert("La cuenta fue creada con éxito");
   window.location.href = "estudiantes.html";
+}
+
+// Función para verificar si el correo ya existe (nuevo)
+async function verificarCorreoExistente(email) {
+  const response = await fetch(`api/estudiantes/verificar-email?email=${encodeURIComponent(email)}`);
+  if (!response.ok) {
+    alert("Error al verificar el correo.");
+    return true; // asumimos que existe por seguridad
+  }
+  const resultado = await response.json();
+  return resultado.existe;
 }
 
 function validarTelefono(telefono) {

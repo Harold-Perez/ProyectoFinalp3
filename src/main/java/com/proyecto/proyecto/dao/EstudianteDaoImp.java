@@ -96,6 +96,14 @@ public class EstudianteDaoImp implements EstudianteDao {
         entityManager.merge(existente);
     }
 
+    @Override
+    public boolean emailExistente(String email) {
+        String query = "SELECT COUNT(e) FROM Estudiante e WHERE e.email = :email";
+        Long count = entityManager.createQuery(query, Long.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        return count > 0;
+    }
 
 
 }

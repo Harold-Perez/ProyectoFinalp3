@@ -22,5 +22,5 @@ public interface EstudianteDao {
     void actualizarParcial(Long id, Map<String, Object> datos);
 
 
-
+    boolean emailExistente(String email);
 }

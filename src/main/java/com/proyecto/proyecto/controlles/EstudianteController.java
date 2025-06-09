@@ -80,8 +80,14 @@ public class EstudianteController {
     public ResponseEntity<String> registrarEstudiante(@RequestBody @Valid Estudiante estudiante) {
         estudianteDao.registrar(estudiante);
         return new ResponseEntity<>("Estudiante registrado exitosamente", HttpStatus.CREATED);
-
     }
+
+    @GetMapping("api/estudiantes/verificar-email")
+    public ResponseEntity<Map<String, Boolean>> verificarEmailExistente(@RequestParam String email) {
+        boolean existe = estudianteDao.emailExistente(email);
+        return ResponseEntity.ok(Map.of("existe", existe));
+    }
+
 
 
     // Eliminar estudiante
