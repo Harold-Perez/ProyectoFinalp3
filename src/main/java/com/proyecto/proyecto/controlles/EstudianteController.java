@@ -2,14 +2,14 @@ package com.proyecto.proyecto.controlles;
 
 import com.proyecto.proyecto.dao.EstudianteDao;
 import com.proyecto.proyecto.models.Estudiante;
-import de.mkammerer.argon2.Argon2;
-import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,21 +19,18 @@ public class EstudianteController {
     @Autowired
     private EstudianteDao estudianteDao;
 
+
     // Obtener estudiante por ID
     @RequestMapping(value = "api/estudiantes/{id}", method = RequestMethod.GET)
-    public Estudiante getEstudiante(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) {
-
+    public Estudiante getEstudiante(@PathVariable Long id) {
         return estudianteDao.obtenerEstudiantePorId(id);
     }
 
     // Actualizar completamente un estudiante
     @RequestMapping(value = "api/estudiantes/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> actualizarEstudiante(
-            @RequestHeader(value = "Authorization") String token,
             @PathVariable Long id,
             @RequestBody Estudiante estudiante) {
-
-
 
         Estudiante existente = estudianteDao.obtenerEstudiantePorId(id);
         if (existente == null) {
@@ -54,11 +51,8 @@ public class EstudianteController {
     // Actualización parcial con PATCH
     @PatchMapping("api/estudiantes/{id}")
     public ResponseEntity<String> actualizarParcialEstudiante(
-            @RequestHeader(value = "Authorization") String token,
             @PathVariable Long id,
             @RequestBody Map<String, Object> datos) {
-
-
 
         Estudiante existente = estudianteDao.obtenerEstudiantePorId(id);
         if (existente == null) {
@@ -75,30 +69,24 @@ public class EstudianteController {
         }
     }
 
-
     // Obtener todos los estudiantes
     @RequestMapping(value = "api/estudiantes", method = RequestMethod.GET)
-    public List<Estudiante> getEstudiantes(@RequestHeader(value = "Authorization") String token) {
-       
+    public List<Estudiante> getEstudiantes() {
         return estudianteDao.getEstudiantes();
     }
 
     // Registrar nuevo estudiante
     @RequestMapping(value = "api/estudiantes", method = RequestMethod.POST)
     public ResponseEntity<String> registrarEstudiante(@RequestBody @Valid Estudiante estudiante) {
-
-
         estudianteDao.registrar(estudiante);
         return new ResponseEntity<>("Estudiante registrado exitosamente", HttpStatus.CREATED);
+
     }
+
 
     // Eliminar estudiante
     @RequestMapping(value = "api/estudiantes/{id}", method = RequestMethod.DELETE)
-    public void eliminar(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) {
-
+    public void eliminar(@PathVariable Long id) {
         estudianteDao.eliminar(id);
     }
-
-
-
 }

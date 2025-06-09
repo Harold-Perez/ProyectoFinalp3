@@ -22,51 +22,25 @@
     }
 
 
-    .main-header {
+     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 60px;
-      background: #121212;
-      border-bottom: 2px solid #00f7ff44;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #0f0f0f;
+      border-bottom: 1px solid #222;
       z-index: 10;
     }
 
-    .main-header .logo {
+    header h1 {
       color: #00f7ff;
-      font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px #00f7ff;
     }
 
-    .main-header nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
 
-    .main-header nav ul li a {
-      color: #ccc;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
-      padding: 6px 8px;
-      border-radius: 5px;
-    }
-
-    .main-header nav ul li a:hover,
-    .main-header nav ul li a.active {
-      color: #00f7ff;
-      text-shadow: 0 0 10px #00f7ff;
-      background-color: #00f7ff11;
-    }
      .main-container {
       position: absolute;
       top: 60px;
@@ -177,14 +151,13 @@
 
 <body>
 
-<header class="main-header">
-  <div class="logo">EduFuture</div>
+<header>
+  <h1>EduFuture</h1>
   <nav>
-    <ul>
-      <li><a href="banner.html">Inicio</a></li>
-    </ul>
+    <a href="banner.html">Inicio</a>
   </nav>
 </header>
+
 
 <div id="particles-js"></div>
 <div class="main-container">

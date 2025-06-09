@@ -20,4 +20,7 @@ public interface EstudianteDao {
     Estudiante actualizar(Estudiante estudiante);
 
     void actualizarParcial(Long id, Map<String, Object> datos);
+
+
+
 }

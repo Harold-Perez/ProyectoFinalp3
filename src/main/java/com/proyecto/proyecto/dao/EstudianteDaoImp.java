@@ -84,7 +84,6 @@ public class EstudianteDaoImp implements EstudianteDao {
         if (datos.containsKey("idioma")) {
             String idioma = ((String) datos.get("idioma")).toLowerCase();
 
-            // Normalizar: quitar tilde si viene con ella
             idioma = idioma.replace("í", "i").replace("é", "e").replace("á", "a");
 
             if (idioma.equals("espanol") || idioma.equals("ingles") || idioma.equals("frances")) {
@@ -97,7 +96,10 @@ public class EstudianteDaoImp implements EstudianteDao {
         entityManager.merge(existente);
     }
 
-}  // <--- Esta llave cierra la clase y puede ser la que te falta
+
+
+}
+
 
 
 
