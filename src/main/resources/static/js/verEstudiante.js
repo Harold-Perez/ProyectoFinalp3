@@ -7,56 +7,49 @@ async function cargarEstudiante() {
     return;
   }
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    alert("No hay token. Por favor inicia sesión.");
+  const response = await fetch(`http://localhost:8080/api/estudiantes/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    alert("Error al buscar estudiante");
     return;
   }
 
-  const response = await fetch(`http://localhost:8080/api/estudiantes/${id}`, {
-  method: 'GET',
-  headers: {
-    'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json'
+  // Evitar el error por JSON vacío
+  const text = await response.text();
+  if (!text) {
+    alert("Estudiante no encontrado");
+    return;
   }
-});
 
-if (!response.ok) {
-  alert("Error al buscar estudiante");
-  return;
-}
+  const estudiante = JSON.parse(text);
 
-//  Evitar el error por JSON vacío
-const text = await response.text();
-if (!text) {
-  alert("Estudiante no encontrado");
-  return;
-}
-
-const estudiante = JSON.parse(text);
-
-if (!estudiante || !estudiante.id) {
-  alert("Estudiante no encontrado");
-  return;
-}
+  if (!estudiante || !estudiante.id) {
+    alert("Estudiante no encontrado");
+    return;
+  }
 
   document.getElementById("nombre").value = estudiante.nombre;
   document.getElementById("apellido").value = estudiante.apellido;
   document.getElementById("email").value = estudiante.email;
   document.getElementById("telefono").value = estudiante.telefono;
-    document.getElementById("idioma").value = estudiante.idioma;
+  document.getElementById("idioma").value = estudiante.idioma;
 
   localStorage.setItem("idEstudiante", id);
 }
 
-  function redirigirEditarCompleto() {
-    const id = localStorage.getItem("idEstudiante");
-    window.location.href = `editarEstudiante.html?id=${id}`;
-  }
+function redirigirEditarCompleto() {
+  const id = localStorage.getItem("idEstudiante");
+  window.location.href = `editarEstudiante.html?id=${id}`;
+}
 
-  function redirigirEditarParcial() {
-    const id = localStorage.getItem("idEstudiante");
-    window.location.href = `editarEstudianteParcial.html?id=${id}`;
-  }
+function redirigirEditarParcial() {
+  const id = localStorage.getItem("idEstudiante");
+  window.location.href = `editarEstudianteParcial.html?id=${id}`;
+}
 
-  cargarEstudiante();
+cargarEstudiante();
