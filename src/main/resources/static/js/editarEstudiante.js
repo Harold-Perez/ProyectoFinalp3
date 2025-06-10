@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
 async function cargarDatosEstudiante() {
-  const response = await fetch(`http://localhost:8080/api/estudiantes/${id}`);
+  const response = await fetch(`api/estudiantes/${id}`);
 
   if (!response.ok) {
     alert("No se pudo cargar el estudiante.");
@@ -33,7 +33,7 @@ async function actualizarEstudiante() {
     idioma: document.getElementById("idioma").value
   };
 
-  const response = await fetch(`http://localhost:8080/api/estudiantes/${id}`, {
+  const response = await fetch(`http:api/estudiantes/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"

@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
 async function cargarNombre() {
-  const response = await fetch(`http://localhost:8080/api/estudiantes/${id}`);
+  const response = await fetch(`api/estudiantes/${id}`);
 
   if (!response.ok) {
     document.getElementById("nombreEstudiante").innerText = "Error al cargar el nombre";
@@ -28,7 +28,7 @@ async function editarParcial() {
     return;
   }
 
-  const response = await fetch(`http://localhost:8080/api/estudiantes/${id}`, {
+  const response = await fetch(`http:api/estudiantes/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json"

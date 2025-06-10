@@ -7,7 +7,7 @@ async function cargarEstudiante() {
     return;
   }
 
-  const response = await fetch(`http://localhost:8080/api/estudiantes/${id}`, {
+  const response = await fetch(`api/estudiantes/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
