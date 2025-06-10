@@ -21,12 +21,7 @@ public class EstudianteDaoImp implements EstudianteDao {
         String query = "FROM Estudiante";
         return entityManager.createQuery(query).getResultList();
     }
-
-    @Override
-    public void eliminar(Long id) {
-        Estudiante estudiante = entityManager.find(Estudiante.class, id);
-        entityManager.remove(estudiante);
-    }
+    
 
     @Override
     public void registrar(Estudiante estudiante) {
@@ -103,6 +98,12 @@ public class EstudianteDaoImp implements EstudianteDao {
                 .setParameter("email", email)
                 .getSingleResult();
         return count > 0;
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        Estudiante estudiante = entityManager.find(Estudiante.class, id);
+        entityManager.remove(estudiante);
     }
 
 

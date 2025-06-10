@@ -19,11 +19,29 @@ public class EstudianteController {
     @Autowired
     private EstudianteDao estudianteDao;
 
+    // Obtener todos los estudiantes
+    @RequestMapping(value = "api/estudiantes", method = RequestMethod.GET)
+    public List<Estudiante> getEstudiantes() {
+        return estudianteDao.getEstudiantes();
+    }
 
     // Obtener estudiante por ID
     @RequestMapping(value = "api/estudiantes/{id}", method = RequestMethod.GET)
     public Estudiante getEstudiante(@PathVariable Long id) {
         return estudianteDao.obtenerEstudiantePorId(id);
+    }
+
+    // Registrar nuevo estudiante
+    @RequestMapping(value = "api/estudiantes", method = RequestMethod.POST)
+    public ResponseEntity<String> registrarEstudiante(@RequestBody @Valid Estudiante estudiante) {
+        estudianteDao.registrar(estudiante);
+        return new ResponseEntity<>("Estudiante registrado exitosamente", HttpStatus.CREATED);
+    }
+
+    @GetMapping("api/estudiantes/verificar-email")
+    public ResponseEntity<Map<String, Boolean>> verificarEmailExistente(@RequestParam String email) {
+        boolean existe = estudianteDao.emailExistente(email);
+        return ResponseEntity.ok(Map.of("existe", existe));
     }
 
     // Actualizar completamente un estudiante
@@ -68,27 +86,6 @@ public class EstudianteController {
             return new ResponseEntity<>("Error interno al actualizar", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    // Obtener todos los estudiantes
-    @RequestMapping(value = "api/estudiantes", method = RequestMethod.GET)
-    public List<Estudiante> getEstudiantes() {
-        return estudianteDao.getEstudiantes();
-    }
-
-    // Registrar nuevo estudiante
-    @RequestMapping(value = "api/estudiantes", method = RequestMethod.POST)
-    public ResponseEntity<String> registrarEstudiante(@RequestBody @Valid Estudiante estudiante) {
-        estudianteDao.registrar(estudiante);
-        return new ResponseEntity<>("Estudiante registrado exitosamente", HttpStatus.CREATED);
-    }
-
-    @GetMapping("api/estudiantes/verificar-email")
-    public ResponseEntity<Map<String, Boolean>> verificarEmailExistente(@RequestParam String email) {
-        boolean existe = estudianteDao.emailExistente(email);
-        return ResponseEntity.ok(Map.of("existe", existe));
-    }
-
-
 
     // Eliminar estudiante
     @RequestMapping(value = "api/estudiantes/{id}", method = RequestMethod.DELETE)

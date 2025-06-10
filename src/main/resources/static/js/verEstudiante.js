@@ -26,7 +26,7 @@ if (!response.ok) {
   return;
 }
 
-// 🛠️ Evitar el error por JSON vacío
+//  Evitar el error por JSON vacío
 const text = await response.text();
 if (!text) {
   alert("Estudiante no encontrado");
