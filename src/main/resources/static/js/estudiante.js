@@ -2,12 +2,7 @@
 $(document).ready(function () {
   cargarEstudiantes();
   $('#estudiantes')
-  actualizarEmailDelEstudiante();
 });
-
-function actualizarEmailDelEstudiante() {
-  document.getElementById('txt-email-estudiante').textContent = localStorage.email;
-  }
 
 async function cargarEstudiantes() {
   const request = await fetch('api/estudiantes', {
